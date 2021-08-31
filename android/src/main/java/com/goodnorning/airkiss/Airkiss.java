@@ -1,19 +1,12 @@
 package com.goodnorning.airkiss;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.util.SparseArray;
 import android.os.AsyncTask;
-import android.util.Base64;
-
-import com.facebook.common.logging.FLog;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
@@ -68,7 +61,7 @@ public final class Airkiss extends ReactContextBaseJavaModule {
         // private static final byte  kMagic_Num_1             =0x01;
         // private static final byte  kMagic_Num_2             =0xFE;
         // private static final byte  kMagic_Num_3             =0xFC;
-        private static final int AIRKISS_LAN_SSDP_NOTIFY_CMD = 0x1002;  
+        private static final int AIRKISS_LAN_SSDP_NOTIFY_CMD = 0x1002;
         private Callback mCallback;
         private boolean mStop = false;
         private volatile boolean mGotNotify = false;
@@ -156,11 +149,11 @@ public final class Airkiss extends ReactContextBaseJavaModule {
                         //     if (buffer[i]>0x7F)
                         //         buffer[i]='\0';
                         // }
-                    
+
                         mDevice = new String(buffer,0,len);
                         Log.d("parseNotifyData------",mDevice);
                         return true;
-                    }           
+                    }
                 }
             }
             return false;
@@ -172,7 +165,7 @@ public final class Airkiss extends ReactContextBaseJavaModule {
             int count = 0;
             while(!mGotNotify && count < 60) {
                 count++;
-                try {  
+                try {
                     Thread.sleep(500);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -196,7 +189,7 @@ public final class Airkiss extends ReactContextBaseJavaModule {
                 result.putInt("code",-1);
             }
             mCallback.invoke(result);
-        }  
+        }
         public void stop() {
         	mStop = true;
         }
